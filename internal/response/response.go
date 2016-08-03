@@ -16,7 +16,7 @@ import (
 	"strings"
   "encoding/json"
 
-	"github.com/fizzy123/authboss"
+	"github.com/BastilleNetworks/authboss"
 )
 
 var (

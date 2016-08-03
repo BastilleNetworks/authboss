@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/fizzy123/authboss"
-	"github.com/fizzy123/authboss/internal/mocks"
+	"github.com/BastilleNetworks/authboss"
+	"github.com/BastilleNetworks/authboss/internal/mocks"
 )
 
 func TestStorage(t *testing.T) {

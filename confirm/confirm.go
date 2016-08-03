@@ -11,8 +11,8 @@ import (
 	"net/url"
 	"path"
 
-	"github.com/fizzy123/authboss"
-	"github.com/fizzy123/authboss/internal/response"
+	"github.com/BastilleNetworks/authboss"
+	"github.com/BastilleNetworks/authboss/internal/response"
 )
 
 // Storer and FormValue constants

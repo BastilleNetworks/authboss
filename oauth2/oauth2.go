@@ -13,8 +13,8 @@ import (
 	"strings"
 
 	"golang.org/x/oauth2"
-	"github.com/fizzy123/authboss"
-	"github.com/fizzy123/authboss/internal/response"
+	"github.com/BastilleNetworks/authboss"
+	"github.com/BastilleNetworks/authboss/internal/response"
 )
 
 var (

@@ -6,7 +6,7 @@ import (
 
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
-	"github.com/fizzy123/authboss"
+	"github.com/BastilleNetworks/authboss"
 )
 
 const (
