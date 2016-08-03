@@ -11,8 +11,8 @@ import (
 	"net/url"
 	"path"
 
-	"gopkg.in/authboss.v0"
-	"gopkg.in/authboss.v0/internal/response"
+	"github.com/fizzy123/authboss"
+	"github.com/fizzy123/authboss/internal/response"
 )
 
 // Storer and FormValue constants

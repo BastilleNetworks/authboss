@@ -6,8 +6,8 @@ import (
 	"net/http"
 
 	"golang.org/x/crypto/bcrypt"
-	"gopkg.in/authboss.v0"
-	"gopkg.in/authboss.v0/internal/response"
+	"github.com/fizzy123/authboss"
+	"github.com/fizzy123/authboss/internal/response"
 )
 
 const (
@@ -107,7 +107,11 @@ func (reg *Register) registerPostHandler(ctx *authboss.Context, w http.ResponseW
 			data[f] = r.FormValue(f)
 		}
 
-		return reg.templates.Render(ctx, w, r, tplRegister, data)
+    if reg.Json {
+      return response.JsonResponse(w, data)
+    } else {
+      return reg.templates.Render(ctx, w, r, tplRegister, data)
+    }
 	}
 
 	attr, err := authboss.AttributesFromRequest(r) // Attributes from overriden forms
@@ -135,7 +139,11 @@ func (reg *Register) registerPostHandler(ctx *authboss.Context, w http.ResponseW
 			data[f] = r.FormValue(f)
 		}
 
-		return reg.templates.Render(ctx, w, r, tplRegister, data)
+    if reg.Json {
+      return response.JsonResponse(w, data)
+    } else {
+      return reg.templates.Render(ctx, w, r, tplRegister, data)
+    }
 	} else if err != nil {
 		return err
 	}
@@ -145,12 +153,29 @@ func (reg *Register) registerPostHandler(ctx *authboss.Context, w http.ResponseW
 	}
 
 	if reg.IsLoaded("confirm") {
-		response.Redirect(ctx, w, r, reg.RegisterOKPath, "Account successfully created, please verify your e-mail address.", "", true)
-		return nil
+    message := "Account successfully created, please verify your e-mail address."
+    if reg.Json {
+      data := authboss.HTMLData{}
+      data["message"] = message
+      return response.JsonResponse(w, data)
+    } else {
+      response.Redirect(ctx, w, r, reg.RegisterOKPath, message, "", true)
+      return nil
+    }
 	}
 
+  data := authboss.HTMLData{}
 	ctx.SessionStorer.Put(authboss.SessionKey, key)
 	response.Redirect(ctx, w, r, reg.RegisterOKPath, "Account successfully created, you are now logged in.", "", true)
 
 	return nil
+  message := "Account successfully created, you are now logged in."
+  if reg.Json {
+    data["message"] = message
+    data["uid"] = key
+    return response.JsonResponse(w, data)
+  } else {
+    response.Redirect(ctx, w, r, reg.RegisterOKPath, message, "", true)
+    return nil
+  }
 }
