@@ -65,6 +65,15 @@ type OAuth2Storer interface {
 	GetOAuth(uid, provider string) (interface{}, error)
 }
 
+// SamlStorer is a replacement (or addition) to the Storer interface.
+// It allows users to be stored and fetched via saml.
+type SamlStorer interface {
+  // PutOAuth creates or updates an existing record (unlike Storer.Put)
+  // because in the OAuth flow there is no separate create/update.
+  PutSaml(name_id, attr Attributes) error
+  GetSaml(name_id) (interface{}, error)
+}
+
 // DataType represents the various types that clients must be able to store.
 type DataType int
 
