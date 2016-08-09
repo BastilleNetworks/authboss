@@ -124,6 +124,9 @@ type Config struct {
 	// SessionStoreMaker must be defined to provide an interface capable of storing session-only
 	// values for the given response, and reading them from the request.
 	SessionStoreMaker SessionStoreMaker
+  // Saml Storers
+  SamlStorer SamlStorer
+  SamlStoreMaker SamlStoreMaker
 	// LogWriter is written to when errors occur, as well as on startup to show which modules are loaded
 	// and which routes they registered. By default writes to io.Discard.
 	LogWriter io.Writer

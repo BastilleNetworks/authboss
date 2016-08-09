@@ -43,6 +43,9 @@ func (a *Authboss) InitContext(w http.ResponseWriter, r *http.Request) *Context 
 	if ctx.OAuth2StoreMaker != nil {
 		ctx.OAuth2Storer = ctx.OAuth2StoreMaker(w, r)
 	}
+	if ctx.SamlStoreMaker != nil {
+		ctx.SamlStorer = ctx.SamlStoreMaker(w, r)
+	}
 
 	if ctx.LogWriteMaker != nil {
 		ctx.LogWriter = ctx.LogWriteMaker(w, r)

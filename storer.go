@@ -70,8 +70,8 @@ type OAuth2Storer interface {
 type SamlStorer interface {
   // PutOAuth creates or updates an existing record (unlike Storer.Put)
   // because in the OAuth flow there is no separate create/update.
-  PutSaml(name_id, attr Attributes) error
-  GetSaml(name_id) (interface{}, error)
+  PutSaml(name_id string, attr Attributes) error
+  GetSaml(name_id string) (interface{}, error)
 }
 
 // DataType represents the various types that clients must be able to store.
@@ -324,6 +324,9 @@ type StoreMaker func(http.ResponseWriter, *http.Request) Storer
 
 // OAuth2StoreMaker is used to create an oauth2 storer from an http request.
 type OAuth2StoreMaker func(http.ResponseWriter, *http.Request) OAuth2Storer
+
+// SamlStoreMaker is used to create an oauth2 storer from an http request.
+type SamlStoreMaker func(http.ResponseWriter, *http.Request) SamlStorer
 
 // Unbind is the opposite of Bind, taking a struct in and producing a list of attributes.
 func Unbind(intf interface{}) Attributes {

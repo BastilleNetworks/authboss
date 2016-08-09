@@ -100,7 +100,7 @@ func (reg *Register) registerPostHandler(ctx *authboss.Context, w http.ResponseW
 		data := authboss.HTMLData{
 			"primaryID":      reg.PrimaryID,
 			"primaryIDValue": key,
-			"errs":           validationErrs.Map(),
+			"errors":           validationErrs.Map(),
 		}
 
 		for _, f := range reg.PreserveFields {
@@ -132,7 +132,7 @@ func (reg *Register) registerPostHandler(ctx *authboss.Context, w http.ResponseW
 		data := authboss.HTMLData{
 			"primaryID":      reg.PrimaryID,
 			"primaryIDValue": key,
-			"errs":           map[string][]string{reg.PrimaryID: []string{"Already in use"}},
+			"errors":           map[string][]string{reg.PrimaryID: []string{"Already in use"}},
 		}
 
 		for _, f := range reg.PreserveFields {

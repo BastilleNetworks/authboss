@@ -95,7 +95,7 @@ func (a *Auth) loginHandlerFunc(ctx *authboss.Context, w http.ResponseWriter, r 
 		if valid, err := validateCredentials(ctx, key, password); err != nil {
 			errData["error"] = "Internal server error"
       if a.Json {
-        errData["errs"] = map[string][]string{"server": []string{errData["error"].(string)}}
+        errData["errors"] = map[string][]string{"server": []string{errData["error"].(string)}}
         return response.JsonResponse(w, errData)
       } else {
         fmt.Fprintf(ctx.LogWriter, "auth: validate credentials failed: %v\n", err)
@@ -106,7 +106,7 @@ func (a *Auth) loginHandlerFunc(ctx *authboss.Context, w http.ResponseWriter, r 
 				fmt.Fprintf(ctx.LogWriter, "EventAuthFail callback error'd out: %v\n", err)
 			}
       if a.Json {
-        errData["errs"] = map[string][]string{"validation": []string{errData["error"].(string)}}
+        errData["errors"] = map[string][]string{"validation": []string{errData["error"].(string)}}
         return response.JsonResponse(w, errData)
       } else {
         return a.templates.Render(ctx, w, r, tplLogin, errData)
@@ -125,7 +125,7 @@ func (a *Auth) loginHandlerFunc(ctx *authboss.Context, w http.ResponseWriter, r 
 				reason = "Your account has not been confirmed."
 			}
       if a.Json {
-        errData["errs"] = map[string][]string{"account": []string{reason}}
+        errData["errors"] = map[string][]string{"account": []string{reason}}
         return response.JsonResponse(w, errData)
       } else {
         response.Redirect(ctx, w, r, a.AuthLoginFailPath, "", reason, false)

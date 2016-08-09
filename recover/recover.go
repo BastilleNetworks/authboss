@@ -145,7 +145,7 @@ func (rec *Recover) startHandlerFunc(ctx *authboss.Context, w http.ResponseWrite
 
 		policies := authboss.FilterValidators(rec.Policies, rec.PrimaryID)
 		if validationErrs := authboss.Validate(r, policies, rec.PrimaryID, authboss.ConfirmPrefix+rec.PrimaryID).Map(); len(validationErrs) > 0 {
-			errData.MergeKV("errs", validationErrs)
+			errData.MergeKV("errors", validationErrs)
       if rec.Json {
         return response.JsonResponse(w, errData)
       } else {
@@ -256,7 +256,7 @@ func (r *Recover) completeHandlerFunc(ctx *authboss.Context, w http.ResponseWrit
 		if validationErrs := authboss.Validate(req, policies, authboss.StorePassword, authboss.ConfirmPrefix+authboss.StorePassword).Map(); len(validationErrs) > 0 {
 			data := authboss.NewHTMLData(
 				formValueToken, token,
-				"errs", validationErrs,
+				"errors", validationErrs,
 			)
       if r.Json {
         return response.JsonResponse(w, data)
