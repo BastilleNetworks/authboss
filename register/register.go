@@ -107,6 +107,7 @@ func (reg *Register) registerPostHandler(ctx *authboss.Context, w http.ResponseW
 			data[f] = r.FormValue(f)
 		}
 
+    w.WriteHeader(http.StatusInternalServerError)
     if reg.Json {
       return response.JsonResponse(w, data)
     } else {
@@ -170,7 +171,7 @@ func (reg *Register) registerPostHandler(ctx *authboss.Context, w http.ResponseW
   message := "Account successfully created, you are now logged in."
   if reg.Json {
     data["message"] = message
-    data["uid"] = key
+    data["api_key"] = key
     return response.JsonResponse(w, data)
   } else {
     response.Redirect(ctx, w, r, reg.RegisterOKPath, message, "", true)
