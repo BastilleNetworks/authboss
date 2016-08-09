@@ -140,9 +140,16 @@ func (a *Auth) loginHandlerFunc(ctx *authboss.Context, w http.ResponseWriter, r 
 		if err := a.Callbacks.FireAfter(authboss.EventAuth, ctx); err != nil {
 			return err
 		}
+
     if a.Json {
+      var user_attr authboss.Attributes
+      user_interface, err := ctx.Storer.Get(key)
+      if err != nil {
+        return err
+      }
+      user_attr = authboss.Unbind(user_interface)
       data := authboss.HTMLData{
-        "uid": key,
+        "api_key": user_attr["api_key"],
       }
       return response.JsonResponse(w, data)
     } else {

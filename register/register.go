@@ -165,15 +165,21 @@ func (reg *Register) registerPostHandler(ctx *authboss.Context, w http.ResponseW
     }
 	}
 
-	ctx.SessionStorer.Put(authboss.SessionKey, key)
+  var user_attr authboss.Attributes
+	user_interface, err := ctx.Storer.Get(key)
+  if err != nil {
+    return err
+  }
+  user_attr = authboss.Unbind(user_interface)
 
   data := authboss.HTMLData{}
   message := "Account successfully created, you are now logged in."
   if reg.Json {
     data["message"] = message
-    data["api_key"] = key
+    data["api_key"] = user_attr["api_key"]
     return response.JsonResponse(w, data)
   } else {
+    ctx.SessionStorer.Put(authboss.SessionKey, key)
     response.Redirect(ctx, w, r, reg.RegisterOKPath, message, "", true)
     return nil
   }
