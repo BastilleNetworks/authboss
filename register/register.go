@@ -164,11 +164,9 @@ func (reg *Register) registerPostHandler(ctx *authboss.Context, w http.ResponseW
     }
 	}
 
-  data := authboss.HTMLData{}
 	ctx.SessionStorer.Put(authboss.SessionKey, key)
-	response.Redirect(ctx, w, r, reg.RegisterOKPath, "Account successfully created, you are now logged in.", "", true)
 
-	return nil
+  data := authboss.HTMLData{}
   message := "Account successfully created, you are now logged in."
   if reg.Json {
     data["message"] = message
